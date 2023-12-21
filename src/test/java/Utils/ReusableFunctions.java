@@ -1,69 +1,123 @@
-package Utils;
+package utils;
 
-import java.util.HashMap;
 
-import Payloads.Payloads;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.http.ContentType;
-import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
-import io.restassured.specification.ResponseSpecification;
-import org.hamcrest.Matcher;
-import org.junit.Assert;
 
-public class ReusableFunctions extends Payloads {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-    Utils functions = new Utils();
-    Response response;
-    RequestSpecification baseReq;
-    ResponseSpecification res;
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.util.List;
 
-    protected final static HashMap<String, String> data = new HashMap<String, String>();
+import org.assertj.core.api.Assert;
+import org.assertj.core.api.SoftAssertions;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 
-    public RequestSpecification requestSpecification(String token) {
-        baseReq = new RequestSpecBuilder().setBaseUri("https://organization-staging.minervaiotdev.com/").
-                setContentType(ContentType.JSON).
-                addHeader("Authorization", "Bearer " + token).addHeader("Accept-Language", "en").build();
-        return baseReq;
+import pageobject.settingsModule;
 
-    }
+public class ReusableFunctions  {
+	 private WebDriver driver;
+	 
+	 settingsModule sett = new settingsModule(driver);
 
-    public void visitor_response_validation(String firstName, String lastName, String nickname, String gender, String code, String personType, String email, String Phone, String Religion, boolean isRestricted, String visitorCompanyName, Response validation_responseObj, String DateOfBirth) {
-        Assert.assertEquals(firstName, functions.getJsonPath(validation_responseObj, "data.firstName"));
-        Assert.assertEquals(lastName, functions.getJsonPath(validation_responseObj, "data.lastName"));
-        Assert.assertEquals(nickname, functions.getJsonPath(validation_responseObj, "data.nickName"));
-        Assert.assertEquals(gender, functions.getJsonPath(validation_responseObj, "data.gender"));
-        Assert.assertEquals(code, functions.getJsonPath(validation_responseObj, "data.code"));
-        Assert.assertEquals(personType, functions.getJsonPath(validation_responseObj, "data.personType"));
-        Assert.assertEquals(DateOfBirth, functions.getJsonPath(validation_responseObj, "data.dateOfBirth"));
-        Assert.assertEquals(email, functions.getJsonPath(validation_responseObj, "data.email"));
-        Assert.assertEquals(Phone, functions.getJsonPath(validation_responseObj, "data.phone"));
-        Assert.assertEquals(Religion, functions.getJsonPath(validation_responseObj, "data.religion"));
-        Assert.assertEquals(isRestricted, functions.getJsonPath(validation_responseObj, "data.isRestricted"));
-        Assert.assertEquals(visitorCompanyName, functions.getJsonPath(validation_responseObj, "data.visitorCompanyName"));
-    }
+	public ReusableFunctions(WebDriver driver) {
+		this.driver = driver;
+		PageFactory.initElements(driver,this);
+		
+	}
 
-    public void person_validation(String email, String code, String contact, String firstName, Response validation_responseObj, String lastName, String nickname, String gender, String DateOfBirth, String personType, String Religion, boolean isRestricted, String visitorCompanyName, String joinDate, String jobType) {
-        Assert.assertEquals(firstName, functions.getJsonPath(validation_responseObj, "data.firstName"));
-        Assert.assertEquals(lastName, functions.getJsonPath(validation_responseObj, "data.lastName"));
-        Assert.assertEquals(nickname, functions.getJsonPath(validation_responseObj, "data.nickName"));
-        Assert.assertEquals(gender, functions.getJsonPath(validation_responseObj, "data.gender"));
-        Assert.assertEquals(email, functions.getJsonPath(validation_responseObj, "data.email"));
-        Assert.assertEquals(code, functions.getJsonPath(validation_responseObj, "data.code"));
-        Assert.assertEquals(contact, functions.getJsonPath(validation_responseObj, "data.phone"));
-        Assert.assertEquals(DateOfBirth, functions.getJsonPath(validation_responseObj, "data.dateOfBirth"));
-        Assert.assertEquals(personType, functions.getJsonPath(validation_responseObj, "data.personType"));
-        Assert.assertEquals(Religion, functions.getJsonPath(validation_responseObj, "data.religion"));
-        Assert.assertEquals(joinDate, functions.getJsonPath(validation_responseObj, "data.joinDate"));
-        Assert.assertEquals(isRestricted, functions.getJsonPath(validation_responseObj, "data.isRestricted"));
-        Assert.assertEquals(visitorCompanyName, functions.getJsonPath(validation_responseObj, "data.visitorCompanyName"));
-        Assert.assertEquals(jobType, functions.getJsonPath(validation_responseObj, "data.jobType"));
-    }
+	public void toastMessageValidation(String message) {
+		
+		assertEquals(message, driver.findElement(sett.getApprovalWorkflowToastMessage()).getText());
+	}
+	
+	public void checkTheCodeInApprovalDashboard(String workflowCode) throws InterruptedException {
+	
+		List<WebElement> codes = driver.findElements(sett.getApprovalWorkflowWorkflowCodeList());
+		for (WebElement code : codes) {
+			if(code.getText().equalsIgnoreCase(workflowCode)){
+				
+			   System.out.println("code added successfully");
+			  break;
+			  }
+			else 
+			{
+				junit.framework.Assert.fail("code not matched");
+			}
+		}
+	}
+	
+	public void javaScriptClick(WebElement element) {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].click()",element);
+	}
 
+	public void robotArrowDown(Integer number) throws AWTException {
+		Robot r = new Robot();
+		for (int i = 0; i < number; i++) {
+			r.keyPress(KeyEvent.VK_DOWN);
+			r.keyRelease(KeyEvent.VK_DOWN);
+		}
+	}
+
+	public void robotArrowUp(Integer number) throws AWTException {
+		Robot r = new Robot();
+		for (int i = 0; i < number; i++) {
+			r.keyPress(KeyEvent.VK_UP);
+			r.keyRelease(KeyEvent.VK_UP);
+		}
+	}
+
+	public void Clear(WebElement el) throws AWTException {
+		el.sendKeys(Keys.CONTROL + "a");
+		el.sendKeys(Keys.BACK_SPACE);
+	}
+
+	public void robotTabEnter(int num) throws AWTException {
+		Robot r = new Robot();
+		for (int i = 0; i < num; i++) {
+			r.keyPress(KeyEvent.VK_TAB);
+		}
+		r.keyPress(KeyEvent.VK_ENTER);
+		r.keyRelease(KeyEvent.VK_TAB);
+		r.keyRelease(KeyEvent.VK_ENTER);
+	}
+
+	public void selectSecondElement(List<WebElement> el) {
+		el.get(1).click();
+	}
+
+	public void robotEnter() throws Exception {
+		Robot r = new Robot();
+		r.keyPress(KeyEvent.VK_ENTER);
+		r.keyRelease(KeyEvent.VK_ENTER);
+	}
+
+
+	public void robotTab(Integer num) throws AWTException {
+		Robot r = new Robot();
+		for (int i = 0; i < num; i++) {
+			r.keyPress(KeyEvent.VK_TAB);
+			r.keyRelease(KeyEvent.VK_TAB);
+		}
+	}
+
+	public void windowMinimize(int num) throws Exception {
+		Robot r = new Robot();
+		r.keyPress(KeyEvent.VK_CONTROL);
+		for (int i = 0; i < num; i++) {
+			r.keyPress(KeyEvent.VK_MINUS);
+		}
+		r.keyRelease(KeyEvent.VK_CONTROL);
+		r.keyRelease(KeyEvent.VK_MINUS);
+
+	}
 
 }
-	
-	
-	
-	
-

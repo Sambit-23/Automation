@@ -1,0 +1,9 @@
+-------------------------------------------------------------------------------
+Test set: runners.TestRunner
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 5.32 sec <<< FAILURE!
+Verify wherther login screen is displayed or not when user enter the url(SuperAdmin)  Time elapsed: 0.25 sec  <<< ERROR!
+java.lang.NullPointerException
+	at steps.fhrms.enter_url_of_superadmin(fhrms.java:97)
+	at ✽.Enter Url of SuperAdmin(file:///C:/Users/AshwiniHS/FHRMS/fams/src/test/java/features/superadmin.feature:9)
+
