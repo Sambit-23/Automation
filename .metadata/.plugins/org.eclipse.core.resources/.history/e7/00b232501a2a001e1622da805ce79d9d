@@ -1,0 +1,1465 @@
+package pageObjects;
+import java.util.*;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.hc.core5.util.Timeout;
+import org.bouncycastle.util.Properties;
+import org.junit.Assert;
+import org.junit.validator.PublicClassValidator;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.locators.RelativeLocator;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
+
+import de.erichseifert.vectorgraphics2d.Document;
+import io.cucumber.core.gherkin.Argument;
+
+import static org.junit.Assert.assertEquals;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.File;
+import java.io.IOException;
+import java.time.Duration;
+import java.util.*;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import javax.imageio.ImageIO;
+
+public class CloudVisitorPage {
+    public WebDriver driver;
+    private static Properties properties;
+    JavascriptExecutor javascriptExecutor;
+    Actions actions;
+    WebDriverWait wait;
+    Select sel;
+    Robot robot;
+
+    public WorkshopPage workshopPage;
+    public CloudVisitorPage (WebDriver driver) {
+
+        this.driver = driver;
+        actions = new Actions(driver);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+        try {
+            robot = new Robot();
+        } catch (AWTException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        javascriptExecutor = (JavascriptExecutor)this.driver;
+        PageFactory.initElements(driver, this);
+
+    }
+    //Dashboard part
+    final By headerLogo=By.xpath("/html/body/div/div[1]/header/div[1]");
+    final By userprofileWithOrganization=By.cssSelector("#root > div.app-wrapper > header > div.MuiBox-root> div:nth-child(2)");
+	final By DashBoard_Module=By.cssSelector("#root > div> div > div > div > div> nav > div:nth-child(1)");
+	final By Visitor_Module=By.cssSelector("#root > div> div > div > div > div> nav > div:nth-child(5)");
+	final By Organization_Module=By.cssSelector("#root > div> div > div > div > div> nav > div:nth-child(2)");
+	final By Settings_Module=By.cssSelector("#root > div> div > div > div > div> nav > div:nth-child(6)");
+	final By SiteManagement_Module=By.cssSelector("#root > div> div > div > div > div> nav > div:nth-child(3)");
+	final By DeviceManagement_Module=By.cssSelector("#root > div> div > div > div > div> nav > div:nth-child(4)");
+    final By SideBarFullPage=By.cssSelector("#root > div.app-wrapper > div > div.MuiGrid-root > div");
+	
+	final By checkInTab=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div > div > div:nth-child(1) > div > div > div > div.font-weight-bold > h2");
+    final By CheckIn_Icon=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div> div > div:nth-child(1) > div > div > div > div.ml-auto > img");
+    final By header = By.xpath("//img[@class='app-logo-img']");
+    final By CheckIn_Count=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div > div > div:nth-child(1) > div > div > div > div.font-weight-bold > span");
+    final By full_Checkin_tab=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div.MuiGrid-root.MuiGrid-item>div.MuiGrid-root");
+    
+    final By checkOutTab=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div > div > div:nth-child(2) > div > div > div > div.font-weight-bold > h2");
+    final By CheckOut_Icon=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div> div > div:nth-child(2) > div > div > div > div.ml-auto > img");
+    final By CheckOut_Count=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div > div > div:nth-child(2) > div > div > div > div.font-weight-bold > span");
+    final By full_CheckOut_tab=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div.MuiGrid-root.MuiGrid-item>div.MuiGrid-root");
+    
+    final By SelfRegistrationTab=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div > div > div:nth-child(3) > div > div > div > div.font-weight-bold > h2");
+    final By SelfRegistration_Icon=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div> div > div:nth-child(3) > div > div > div > div.ml-auto > img");
+    final By SelfRegistrationt_Count=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div > div > div:nth-child(3) > div > div > div > div.font-weight-bold > span");
+    final By full_SelfRegistration_tab=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div.MuiGrid-root.MuiGrid-item>div.MuiGrid-root");
+    
+    final By RegistrationTab=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div > div > div:nth-child(4) > div > div > div > div.font-weight-bold > h2");
+    final By Registration_Icon=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div> div > div:nth-child(4) > div > div > div > div.ml-auto > img");
+    final By Registrationt_Count=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div.MuiGrid-root.MuiGrid-item>div.MuiGrid-root");
+    final By full_Registration_tab=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div.MuiGrid-root.MuiGrid-item>div.MuiGrid-root");
+    
+    final By InvitationTab=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div > div > div:nth-child(5) > div > div > div > div.font-weight-bold > h2");
+    final By Invitation_Icon=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div> div > div:nth-child(5) > div > div > div > div.ml-auto > img");
+    final By Invitation_Count=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div > div > div:nth-child(5) > div > div > div > div.font-weight-bold > span");
+    final By full_Invitation_tab=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div >div> div.MuiGrid-root>div:nth-child(5)>div");
+    
+    final By ConfirmedTab=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div > div > div:nth-child(6) > div > div > div > div.font-weight-bold > h2");
+    final By Confirmed_Icon=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div> div > div:nth-child(6) > div > div > div > div.ml-auto > img");
+    final By Confirmed_Count=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div > div > div:nth-child(6) > div > div > div > div.font-weight-bold > span");
+    final By full_Confirmed_tab=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div >div> div.MuiGrid-root>div:nth-child(6)");
+    
+    //Dashboard column data
+    final By name=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div:nth-child(5) > div > div > div> div> div > div > div:nth-child(2) > div> div > div > div");
+    final By mobile=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div:nth-child(5) > div > div > div> div> div > div > div:nth-child(3) > div> div > div > div");
+    final By email=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div:nth-child(5) > div > div > div> div> div > div > div:nth-child(4) > div> div > div > div");
+    final By host=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div:nth-child(5) > div > div > div> div> div > div > div:nth-child(5) > div> div > div > div");
+    final By purpose=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div:nth-child(5) > div > div > div> div> div > div > div:nth-child(6) > div> div > div > div");
+    final By status=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div:nth-child(5) > div > div > div> div> div > div > div:nth-child(7) > div> div > div > div");
+    
+
+    
+    
+    
+    //Dashboard footer and header part
+    final By counterCards = By.cssSelector(".app-content--inner>div>div>div:nth-child(2)>div>div");
+    final By allListOfRadioButton=By.cssSelector("#menu- > div> ul > li");
+    final By todayRadioButton=By.cssSelector("#menu- > div> ul > li:nth-child(1)");
+    final By SevendaysRadioButton=By.cssSelector("#menu- > div> ul > li:nth-child(2)");
+    final By thirtydaysRadioButton=By.cssSelector("#menu- > div> ul > li:nth-child(3)");
+    final By alldaysRadioButton=By.cssSelector("#menu- > div> ul > li:nth-child(4)");
+    final By allRadioButton=By.cssSelector("#menu- > div> ul > li:nth-child(4)");
+    final By paginationCount=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div:nth-child(5) > div > div > div> nav > ul > li> button>span:nth-child(1)");
+    final By nextPageButton=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div:nth-child(5) > div > div > div > nav > ul > li:nth-child(9) > button");
+    final By perpageField= By.id("pagesize");
+    final By perpageOptionList=By.cssSelector("#pagesize > option"); 
+    
+    //Dashboard List
+    final By nameOfVisitorList=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div:nth-child(5) > div > div > div> div> div:nth-child(2) > div > div > div > div>div:nth-child(2)");
+    final By VisitorListOfDashboard=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div:nth-child(5) > div > div > div> div> div:nth-child(2) > div > div > div > div>div");
+    final By VisitorStatus=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div:nth-child(5) > div > div > div> div> div:nth-child(2) > div > div > div > div>div:nth-child(7)");
+    final By visitorProfilePhotoIcon=By.xpath("//body/div[@id='root']/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[5]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]");
+    final By nameList = By.xpath("//div[@role='cell' and @data-field='employees.firstName']");
+    final By emailLists = By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div:nth-child(3) > div > div > div> div > div:nth-child(2) > div > div > div > div > div:nth-child(2)>div:nth-child(1)");
+    final By emailListReg = By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div:nth-child(3) > div > div > div> div > div:nth-child(2) > div > div > div > div > div:nth-child(4)>div:nth-child(1)");
+    final By visitorProfilePhoto=By.cssSelector("body > div.MuiDialog-root.MuiModal-root> div.MuiDialog-container.MuiDialog-scrollPaper > div");
+    final By visitorstatusIcon=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div:nth-child(5) > div > div > div> div> div:nth-child(2) > div > div > div > div>div:nth-child(7)>div>div>span:nth-child(2)");
+    final By statusValue=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div:nth-child(5) > div > div > div> div> div:nth-child(2) > div > div > div > div>div:nth-child(7)");
+    //Side bar Modules
+    final By organizationMenu = By.cssSelector("#root > div > div > div> div > div > nav > div:nth-child(2)");
+    final By personSubMenu = By.cssSelector("#root > div.app-wrapper > div > div> div > div > nav > div> div > div > div:nth-child(1) > div");
+    final By siteManagementMenu = By.cssSelector("#root > div.app-wrapper > div > div > div:nth-child(2) > div > div:nth-child(1) > div > nav > div > div:nth-child(3)");
+    final By siteMenu = By.cssSelector("#root > div.app-wrapper > div > div> div:nth-child(2) > div > div:nth-child(1)>div>nav>div>div:nth-child(3)>div:nth-child(2)>div:nth-child(2)");
+    final By zoneMenu = By.cssSelector("#root > div.app-wrapper > div > div> div:nth-child(2) > div > div:nth-child(1)>div>nav>div>div:nth-child(3)>div:nth-child(2)>div:nth-child(3)");
+    final By firstNameLists = By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div:nth-child(3) > div > div > div > div.MuiDataGrid-main> div:nth-child(2) > div > div > div > div > div:nth-child(2)");
+    final By nameLists = By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div:nth-child(3) > div > div > div> div> div:nth-child(2) > div > div > div > div:nth-child(1) > div:nth-child(2)");
+    final By searchByfirstName = By.xpath("//div[@data-rowindex='0'  and  @role='row']/div[2]/div");
+    final By iconOfEachList=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div:nth-child(5) > div > div > div > div > div:nth-child(2) > div > div > div > div> div:nth-child(7) > div > div > span:nth-child(2)");
+    final By dashboard1stPersonList=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div:nth-child(5) > div > div > div> div> div:nth-child(2) > div > div > div > div:nth-child(1)>div");
+    
+    
+    //Dashboard Search
+    final By filterIcon = By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div.MuiBox-root >div>div>svg.close-icon-search");
+    final By searchIcon=By.xpath("//div/*[@id=\"Search\"]");;
+    final By noRecordsImage = By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div:nth-child(5) > div > div > span");
+    final By searchTextField = By.xpath("//input[@placeholder='Search']");
+    final By clearIcon=By.cssSelector("#Group_7208");
+    
+
+    //Dashboard Filter
+    final By Dashboard_filterIcon = By.cssSelector("#Group_7207>g");
+    final By ClearFilterLink=By.xpath("//a[contains(@href,'#')]");
+    final By Dashboard_filterTooltip=By.xpath("/html[1]/body[1]/div[2]/div[1]/p[1]");
+    final By applyButton = By.cssSelector("body > div.MuiDialog-root > div.MuiDialog-container.MuiDialog-scrollPaper > div > div.MuiDialogActions-root.MuiDialogActions-spacing > button:nth-child(1)");
+    final By resetButton = By.cssSelector("body > div.MuiDialog-root > div.MuiDialog-container.MuiDialog-scrollPaper > div > div.MuiDialogActions-root.MuiDialogActions-spacing > button:nth-child(2)");
+
+    
+    //Visitor Module with Sub module
+    final By visitorMenu = By.cssSelector("#root > div.app-wrapper > div > div > div:nth-child(2) > div > div:nth-child(1) > div > nav > div > div:nth-child(5)");
+    final By visitingFlowchart = By.cssSelector("#root > div.app-wrapper > div > div> div:nth-child(2) > div > div:nth-child(1)>div>nav>div>div:nth-child(5)>div:nth-child(2)>div:nth-child(2)");
+    final By Invitation = By.cssSelector("#root > div.app-wrapper > div > div> div:nth-child(2) > div > div:nth-child(1)>div>nav>div>div:nth-child(5)>div:nth-child(2)>div:nth-child(3)");
+    final By Registration = By.cssSelector("#root > div.app-wrapper > div > div> div:nth-child(2) > div > div:nth-child(1)>div>nav>div>div:nth-child(5)>div:nth-child(2)>div:nth-child(4)");
+    final By Approval = By.cssSelector("#root > div.app-wrapper > div > div> div:nth-child(2) > div > div:nth-child(1)>div>nav>div>div:nth-child(5)>div:nth-child(2)>div:nth-child(5)");
+    final By BlockVisitors = By.cssSelector("#root > div.app-wrapper > div > div> div:nth-child(2) > div > div:nth-child(1)>div>nav>div>div:nth-child(5)>div:nth-child(2)>div:nth-child(6)");
+    final By VisitorLog = By.cssSelector("#root > div.app-wrapper > div > div> div:nth-child(2) > div > div:nth-child(1)>div>nav>div>div:nth-child(5)>div:nth-child(2)>div:nth-child(7)");
+    final By invitationImage = By.cssSelector("//img[@src='/static/media/InvitationImage.8213af84adf187b44a91bdb372ddc296.svg']");
+    final By registrationImage = By.cssSelector("//img[@src='/static/media/RegistrationImage.eaa4f7e721a45269e52ce6ad62cd605e.svg']");
+
+    final By settingsMenu = By.cssSelector("#root > div.app-wrapper > div > div > div:nth-child(2) > div > div:nth-child(1) > div > nav > div > div:nth-child(6)");
+    final By searchByFirstEmail = By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div:nth-child(3) > div > div > div.MuiDataGrid-root > div.MuiDataGrid-main > div:nth-child(2) > div > div > div > div:nth-child(1) > div:nth-child(2)");
+    final By searchByFirstEmailInRegistration = By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div:nth-child(3) > div > div > div.MuiDataGrid-root > div.MuiDataGrid-main > div:nth-child(2) > div > div > div > div:nth-child(1) > div:nth-child(4)");
+
+    final By nameTextfeildInFilter = By.cssSelector("body > div.MuiDialog-root > div.MuiDialog-container.MuiDialog-scrollPaper > div > div> div > div > div>input");
+    final By viewIconInCloudVisitor = By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div:nth-child(3) > div > div > div> div> div:nth-child(2) > div > div > div > div:nth-child(5) > div > div > button:nth-child(1) > div > div");
+    final By viewDetails = By.cssSelector(".MuiDialogContent-root>div>div>div");
+    final By PersonsviewIcon=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div:nth-child(3) > div > div > div> div > div:nth-child(2) > div > div > div >div>div:nth-child(6)>div>button:nth-child(1)");
+    final By selectId = By.id("pagesize");
+    final By plusIcon = By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div> img");
+    final By firstnameField = By.cssSelector(".MuiGrid-root.MuiGrid-container>div:nth-child(2)>div:nth-child(1)>div>div>input");
+    final By emailFieldInInvitation = By.cssSelector(".MuiGrid-root.MuiGrid-container>div:nth-child(3)>div>div>input");
+    final By purposeType = By.cssSelector("body > div> div > div > div > div > div.MuiGrid-root.MuiGrid-container:nth-child(2)>div:nth-child(5)>div>div>div>input");
+    final By purposeTypeClick = By.cssSelector("body > div.MuiDialog-root > div.MuiDialog-container> div > div.MuiDialogContent-root> div > div.MuiGrid-root.MuiGrid-container > div:nth-child(5) > div > div>div>input");
+    final By compName = By.cssSelector(".MuiGrid-root.MuiGrid-container>div:nth-child(2)>div:nth-child(7)>div>div>input");
+    final By site_Type = By.cssSelector("body > div.MuiDialog-root > div.MuiDialog-container > div > div > div > div.MuiGrid-root.MuiGrid-container > div:nth-child(8) > div > div > div");
+    final By siteDropdownClick = By.cssSelector("body > div.MuiDialog-root > div.MuiDialog-container > div > div > div > div.MuiGrid-root.MuiGrid-container > div:nth-child(8) > div > div > div>input");
+    final By submitButton = By.cssSelector("body > div > div.MuiDialog-container.MuiDialog-scrollPaper > div > div.MuiDialogActions-root>button:nth-child(1)");
+    final By verifySuccessfulMessageForRegisterVisitor = By.xpath("//p[contains(text(),'Registration Sent Successfully')]");
+
+//    Select Organization from Select Organization
+	final By SelectOrganizationSearchField= By.cssSelector("#root > div> div> div > div > div > div > div");
+// Person Page
+	final By personTableName=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div:nth-child(3) > div > div > div> div> div.MuiDataGrid-columnHeaders");
+    final By personList=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div:nth-child(3) > div > div > div > div.MuiDataGrid-main> div:nth-child(2) > div > div > div > div > div");
+    final By personfilterIcon = By.xpath("//*[@id='root']/div[1]/div/div[2]/div/div/div[2]/div[2]");
+    final By personsearchIcon=By.xpath("//*[local-name()='svg' and @id='Search']/*[local-name()='path'and @data-name='Path 4131']");
+    final By personProfilePhotoIcon=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div:nth-child(3) > div > div > div > div> div:nth-child(2) > div > div > div > div:nth-child(1) > div > div>div");
+    final By personNextpageButton=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div:nth-child(3) > div > div > div > nav > ul > li:nth-child(9)> button>span");
+    final By allPageNumber=By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div:nth-child(3) > div > div > div.MuiStack-root.css-17o7ae3 > nav > ul>li>button>span");
+    final By stRowPersonlist =By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div:nth-child(3) > div > div > div > div > div:nth-child(2) > div > div > div > div:nth-child(1)>div");
+    public void verifyDashboard()
+    {
+        // It will return the parent window name as a String
+        String parent=driver.getWindowHandle();
+       
+
+        Set<String> s1=driver.getWindowHandles();
+
+       // Now iterate using Iterator
+        Iterator<String> I1= s1.iterator();
+
+        while(I1.hasNext())
+        {
+            String child_window=I1.next();
+            if(!parent.equals(child_window))
+            {
+                driver.switchTo().window(child_window);
+                System.out.println("Child Window titel :" +driver.switchTo().window(child_window).getTitle());
+                String currentUrl=driver.switchTo().window(child_window).getCurrentUrl();
+                System.out.println("child window url:" +currentUrl);
+             
+                
+                
+            
+        }
+//        //switch to the parent window
+//        driver.switchTo().window(parent);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        }
+    
+//        List<String> browserTabs = new ArrayList<String>(driver.getWindowHandles());
+////switch to new tab
+//        for(String s: browserTabs){
+//            System.out.println(s.toString());
+//        }
+////       WebDriver newTab=driver.switchTo().window(browserTabs.get(2));
+////check is it correct page opened or not (e.g. check page's title)
+////...
+////then close tab and get back
+////        driver.close();
+//        WebDriver newTab=driver.switchTo().window(browserTabs.get(1));
+//        System.out.println(newTab.getTitle());
+
+
+//        return driver.findElement(header);
+    }
+    
+    public void headerLogo() throws InterruptedException {
+    	Thread.sleep(5000);
+    	WebElement visitorLogo = driver.findElement(headerLogo);
+    	wait.until(ExpectedConditions.visibilityOf(visitorLogo));
+    	System.out.println(visitorLogo.getText());
+		Assert.assertTrue(visitorLogo.isDisplayed());
+		System.out.println("Visitor logo is displayed");
+		
+		
+		WebElement userprofileWithOrganization1 = driver.findElement(userprofileWithOrganization);
+    	wait.until(ExpectedConditions.visibilityOf(userprofileWithOrganization1));
+    	System.out.println(userprofileWithOrganization1.getText());
+		Assert.assertTrue(userprofileWithOrganization1.isDisplayed());
+		System.out.println("userprofileWithOrganization logo is displayed");
+		
+		
+		String currentUrl=driver.getCurrentUrl();
+	     String childTabTitle=driver.getTitle();
+	     System.out.println("Child tab url is :" +childTabTitle);
+	       System.out.println("Current browser tab URl is :"+currentUrl);
+	}
+    public void sidebarModule2() throws InterruptedException, IOException {
+    	Thread.sleep(5000);
+    	driver.findElement(DashBoard_Module).isDisplayed();
+    	Assert.assertTrue(driver.findElement(DashBoard_Module).isDisplayed());
+    	System.out.println("Dashboard menu displayed");
+    	wait.until(ExpectedConditions.visibilityOfElementLocated(DashBoard_Module));
+    	Assert.assertTrue(driver.findElement(Visitor_Module).isDisplayed());
+    	System.out.println("Visitor_Module menu displayed");
+    	Assert.assertTrue(driver.findElement(Organization_Module).isDisplayed());
+    	System.out.println("Organization_Module menu displayed");
+    	Assert.assertTrue(driver.findElement(Settings_Module).isDisplayed());
+    	System.out.println("Settings_Module menu displayed");
+    	Assert.assertTrue(driver.findElement(SiteManagement_Module).isDisplayed());
+    	System.out.println("SiteManagement_Module menu displayed");
+    	
+    	//Taking the screenshot of full Side bar module page
+    	
+    	
+    	WebElement ele	=driver.findElement(SideBarFullPage);
+		Thread.sleep(2000L);
+		
+		File screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+	    BufferedImage  fullImg = ImageIO.read(screenshot);
+
+	    // Get the location of element on the page
+	    Point point = ele.getLocation();
+
+	    // Get width and height of the element
+	    int eleWidth = ele.getSize().getWidth();
+	    int eleHeight = ele.getSize().getHeight();
+	    
+	    Rectangle rect = new Rectangle(point.getX(),point.getY(),eleWidth, eleHeight);
+	    System.out.println("the width of the screenshot is :" +eleWidth);
+	    System.out.println("the height of the screenshot is :" +eleHeight);
+
+	    // Crop the entire page screenshot to get only element screenshot
+	    BufferedImage eleScreenshot= fullImg.getSubimage(point.getX(), point.getY(),
+	    		rect.width,rect.height);
+	    ImageIO.write(eleScreenshot, "png", screenshot);
+
+	    // Copy the element screenshot to disk
+	    File destifile=new File("sidebarScrrenshot.png");
+	    FileUtils.copyFile(screenshot,destifile);	
+		
+	}
+    
+    public void check_in_barspecified_icon_and_count_should_display() throws IOException {
+		WebElement CheckInTab=driver.findElement(checkInTab);
+		Assert.assertTrue(driver.findElement(checkInTab).isDisplayed());
+		System.out.println("Check in tab name is " +CheckInTab.getText());
+		
+		WebElement logo	=driver.findElement(full_Checkin_tab);
+		File file=logo.getScreenshotAs(OutputType.FILE);
+		File destifile=new File("logo909.png");
+		FileUtils.copyFile(file,destifile);
+		System.out.println("Scrrenshot taken");
+		
+		Assert.assertTrue(driver.findElement(CheckIn_Icon).isDisplayed());
+        WebElement CheckIn_Count2= driver.findElement(CheckIn_Count);
+		Assert.assertTrue(CheckIn_Count2.isDisplayed());
+		System.out.println("Checkin count value is "+CheckIn_Count2.getText());
+
+	}
+    public void check_out_barspecified_icon_and_count_should_display() throws IOException {
+		WebElement checkOutTab2=driver.findElement(checkOutTab);
+		Assert.assertTrue(driver.findElement(checkOutTab).isDisplayed());
+		System.out.println("Check out tab name is :"+checkOutTab2.getText());
+		
+		WebElement logo	=driver.findElement(full_CheckOut_tab);
+		File file=logo.getScreenshotAs(OutputType.FILE);
+		File destifile=new File("logo97.png");
+		FileUtils.copyFile(file,destifile);
+		System.out.println("Scrrenshot taken");
+		Assert.assertTrue(driver.findElement(CheckIn_Icon).isDisplayed());
+        WebElement checkOutTab_Count2= driver.findElement(CheckIn_Count);
+		Assert.assertTrue(checkOutTab_Count2.isDisplayed());
+		System.out.println("Check out count value is :"+checkOutTab_Count2.getText());
+
+	}
+    public void self_registration_barspecified_icon_and_count_should_display() throws IOException {
+		WebElement SelfRegistrationTab2=driver.findElement(SelfRegistrationTab);
+		Assert.assertTrue(driver.findElement(SelfRegistrationTab).isDisplayed());
+		System.out.println("SelfRegistrationTab name is "+SelfRegistrationTab2.getText());
+		
+		WebElement logo	=driver.findElement(full_SelfRegistration_tab);
+		File file=logo.getScreenshotAs(OutputType.FILE);
+		File destifile=new File("logo97.png");
+		FileUtils.copyFile(file,destifile);
+		System.out.println("Scrrenshot taken");
+		Assert.assertTrue(driver.findElement(SelfRegistration_Icon).isDisplayed());
+        WebElement SelfRegistration_Count3= driver.findElement(SelfRegistrationt_Count);
+		Assert.assertTrue(SelfRegistration_Count3.isDisplayed());
+		System.out.println("SelfRegistrationTab count value is :"+SelfRegistration_Count3.getText());
+
+	}
+    public void Registration_barspecified_icon_and_count_should_display() throws IOException {
+		WebElement RegistrationTab2=driver.findElement(RegistrationTab);
+		Assert.assertTrue(driver.findElement(SelfRegistrationTab).isDisplayed());
+		System.out.println("Registration Tab name is " +RegistrationTab2.getText());
+		
+		WebElement logo	=driver.findElement(full_Registration_tab);
+		File file=logo.getScreenshotAs(OutputType.FILE);
+		File destifile=new File("logo97.png");
+		FileUtils.copyFile(file,destifile);
+		System.out.println("Scrrenshot taken");
+		Assert.assertTrue(driver.findElement(Registration_Icon).isDisplayed());
+        WebElement Registration_Count3= driver.findElement(Registrationt_Count);
+		Assert.assertTrue(Registration_Count3.isDisplayed());
+		System.out.println("Registration Tab count value is "+Registration_Count3.getText());
+
+	}
+    
+    
+    
+    public void Invitation_barspecified_icon_and_count_should_display() throws IOException {
+		WebElement InvitationTab2=driver.findElement(InvitationTab);
+		Assert.assertTrue(driver.findElement(InvitationTab).isDisplayed());
+		System.out.println("Invitation Tab name is " +InvitationTab2.getText());
+		
+		WebElement logo	=driver.findElement(full_Invitation_tab);
+		File file=logo.getScreenshotAs(OutputType.FILE);
+		File destifile=new File("logo888.png");
+		FileUtils.copyFile(file,destifile);
+		System.out.println("Scrrenshot taken");
+		Assert.assertTrue(driver.findElement(Invitation_Icon).isDisplayed());
+        WebElement Invitation_Count3= driver.findElement(Invitation_Count);
+		Assert.assertTrue(Invitation_Count3.isDisplayed());
+		System.out.println("Invitation Tab count value is " +Invitation_Count3.getText());
+
+	}
+    
+//    public void Confirmed_barspecified_icon_and_count_should_display() throws IOException {
+//		WebElement ConfirmedTab2=driver.findElement(ConfirmedTab);
+//		Assert.assertTrue(driver.findElement(ConfirmedTab).isDisplayed());
+//		System.out.println(ConfirmedTab2.getText());
+//		
+//		WebElement logo	=driver.findElement(full_Confirmed_tab);
+//		File file=logo.getScreenshotAs(OutputType.FILE);
+//		File destifile=new File("logo97.png");
+//		FileUtils.copyFile(file,destifile);
+//		System.out.println("Scrrenshot taken");
+//		Assert.assertTrue(driver.findElement(Confirmed_Icon).isDisplayed());
+//        WebElement Confirmed_Count3= driver.findElement(Confirmed_Count);
+//		Assert.assertTrue(Confirmed_Count3.isDisplayed());
+//		System.out.println(Confirmed_Count3.getText());
+//
+//	}
+    
+    
+    public void Confirmed2_barspecified_icon_and_count_should_display() throws IOException, InterruptedException {
+		WebElement ConfirmedTab2=driver.findElement(ConfirmedTab);
+		Assert.assertTrue(driver.findElement(ConfirmedTab).isDisplayed());
+		System.out.println("Confirmed Tab name is " +ConfirmedTab2.getText());
+		
+		WebElement ele	=driver.findElement(full_Confirmed_tab);
+		Thread.sleep(2000L);
+		
+		File screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+	    BufferedImage  fullImg = ImageIO.read(screenshot);
+
+	    // Get the location of element on the page
+	    Point point = ele.getLocation();
+
+	    // Get width and height of the element
+	    int eleWidth = ele.getSize().getWidth();
+	    int eleHeight = ele.getSize().getHeight();
+	    
+	    Rectangle rect = new Rectangle(point.getX(),point.getY(),eleWidth, eleHeight);
+	    System.out.println("the width of the screenshot is :" +eleWidth);
+	    System.out.println("the height of the screenshot is :" +eleHeight);
+
+	    // Crop the entire page screenshot to get only element screenshot
+	    BufferedImage eleScreenshot= fullImg.getSubimage(point.getX(), point.getY(),
+	    		rect.width,rect.height);
+	    ImageIO.write(eleScreenshot, "png", screenshot);
+
+	    // Copy the element screenshot to disk
+	    File destifile=new File("logo999.png");
+	    FileUtils.copyFile(screenshot,destifile);
+	    
+	    
+	    
+//	    Assert.assertTrue(driver.findElement(Confirmed_Icon).isDisplayed());
+        WebElement Confirmed_Count3= driver.findElement(Confirmed_Count);
+		Assert.assertTrue(Confirmed_Count3.isDisplayed());
+		System.out.println("Confirmed Tab count value is " +Confirmed_Count3.getText());
+	    
+	    
+	    
+	    
+//		File file=logo.getScreenshotAs(OutputType.FILE);
+//		File destifile=new File("logo97.png");
+//		FileUtils.copyFile(file,destifile);
+//		System.out.println("Scrrenshot taken");
+//		Assert.assertTrue(driver.findElement(Confirmed_Icon).isDisplayed());
+//        WebElement Confirmed_Count3= driver.findElement(Confirmed_Count);
+//		Assert.assertTrue(Confirmed_Count3.isDisplayed());
+//		System.out.println(Confirmed_Count3.getText());
+
+	}
+    
+    public void dashBoardListData() {
+    Assert.assertTrue(driver.findElement(name).isDisplayed());
+    System.out.println("Name column is displayed");
+    Assert.assertTrue(driver.findElement(mobile).isDisplayed());
+    System.out.println("Mobile column is displayed");
+    Assert.assertTrue(driver.findElement(email).isDisplayed());
+    System.out.println("Email column is displayed");
+    Assert.assertTrue(driver.findElement(host).isDisplayed());
+    System.out.println("Host column is displayed");
+    Assert.assertTrue(driver.findElement(purpose).isDisplayed());
+    System.out.println("Purpose column is displayed");
+    Assert.assertTrue(driver.findElement(status).isDisplayed());
+    System.out.println("Status column is displayed");
+    	
+		
+	}
+     
+    public void visitorProfilePhotoIcon() throws InterruptedException, IOException {
+    
+    	WebElement profileIcon=driver.findElement(visitorProfilePhotoIcon);
+    	JavascriptExecutor ele4 = (JavascriptExecutor)driver;
+    	ele4.executeScript("arguments[0].click();", profileIcon);
+
+    	Thread.sleep(1000);
+    	System.out.println("clicked on icon ");
+    	
+        Assert.assertTrue(driver.findElement(visitorProfilePhoto).isDisplayed());	
+    	System.out.println("profile photo displayed");
+    	 System.out.println(driver.findElement(visitorProfilePhoto).getText());
+    	 
+    	 
+    	 WebElement ele	=driver.findElement(visitorProfilePhoto);
+ 		Thread.sleep(2000L);
+ 		
+ 		File screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+ 	    BufferedImage  fullImg = ImageIO.read(screenshot);
+
+ 	    // Get the location of element on the page
+ 	    Point point = ele.getLocation();
+
+ 	    // Get width and height of the element
+ 	    int eleWidth = ele.getSize().getWidth();
+ 	    int eleHeight = ele.getSize().getHeight();
+ 	    
+ 	    Rectangle rect = new Rectangle(point.getX(),point.getY(),eleWidth, eleHeight);
+ 	    System.out.println("the width of the screenshot is :" +eleWidth);
+ 	    System.out.println("the height of the screenshot is :" +eleHeight);
+
+ 	    // Crop the entire page screenshot to get only element screenshot
+ 	    BufferedImage eleScreenshot= fullImg.getSubimage(point.getX(), point.getY(),
+ 	    		rect.width,rect.height);
+ 	    ImageIO.write(eleScreenshot, "png", screenshot);
+
+ 	    // Copy the element screenshot to disk
+ 	    File destifile=new File("profilepgot.png");
+ 	    FileUtils.copyFile(screenshot,destifile);
+    	 
+		
+	}
+    public void PersonProfilePhotoIcon() throws InterruptedException, IOException {
+        
+    	WebElement profileIcon=driver.findElement(personProfilePhotoIcon);
+    	JavascriptExecutor ele4 = (JavascriptExecutor)driver;
+    	ele4.executeScript("arguments[0].click();", profileIcon);
+
+    	Thread.sleep(1000);
+    	System.out.println("clicked on icon ");
+    	
+        Assert.assertTrue(driver.findElement(visitorProfilePhoto).isDisplayed());	
+    	System.out.println("profile photo displayed");
+    	 System.out.println(driver.findElement(visitorProfilePhoto).getText());
+    	 
+    	 
+    	 WebElement ele	=driver.findElement(visitorProfilePhoto);
+ 		Thread.sleep(2000L);
+ 		
+ 		File screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+ 	    BufferedImage  fullImg = ImageIO.read(screenshot);
+
+ 	    // Get the location of element on the page
+ 	    Point point = ele.getLocation();
+
+ 	    // Get width and height of the element
+ 	    int eleWidth = ele.getSize().getWidth();
+ 	    int eleHeight = ele.getSize().getHeight();
+ 	    
+ 	    Rectangle rect = new Rectangle(point.getX(),point.getY(),eleWidth, eleHeight);
+ 	    System.out.println("the width of the screenshot is :" +eleWidth);
+ 	    System.out.println("the height of the screenshot is :" +eleHeight);
+
+ 	    // Crop the entire page screenshot to get only element screenshot
+ 	    BufferedImage eleScreenshot= fullImg.getSubimage(point.getX(), point.getY(),
+ 	    		rect.width,rect.height);
+ 	    ImageIO.write(eleScreenshot, "png", screenshot);
+
+ 	    // Copy the element screenshot to disk
+ 	    File destifile=new File("Personprofilephoto.png");
+ 	    FileUtils.copyFile(screenshot,destifile);
+    	 
+		
+	}
+    public void counterCards() throws InterruptedException
+    {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(counterCards));
+        java.util.List<WebElement> cards = driver.findElements(counterCards);
+        System.out.println("Counter card present :- " + cards.size());
+        
+        driver.findElement(counterCards).click();
+        java.util.List<WebElement> allListOfRadioButtonSize = driver.findElements(allListOfRadioButton);
+      int noOfListOfRadioButton= allListOfRadioButtonSize.size();
+      System.out.println("Total no of radio buttons are: "+noOfListOfRadioButton);
+      
+   for(int i=1;i<=noOfListOfRadioButton;i++) {
+	   
+   String allRadioButton="#menu- > div> ul > li:nth-child("+i+")";
+   System.out.println("radio button number is :"+allRadioButton);
+  WebElement ele4= driver.findElement(By.cssSelector(allRadioButton));
+   JavascriptExecutor jse = (JavascriptExecutor)driver;
+	jse.executeScript("arguments[0].click();", ele4);
+//	Thread.sleep(1000L);
+//	try {
+//	wait.until(ExpectedConditions.visibilityOfElementLocated(nameOfVisitorList));
+//	java.util.List<WebElement> lists = driver.findElements(nameOfVisitorList);
+//	System.out.println("In current organization " + lists.size() + " visitor present");
+//	
+//	for(WebElement ele : lists) {
+//		System.out.println(ele.getText());
+//		ExtentCucumberAdapter.addTestStepLog(ele.getText());
+//		
+//	}	
+//	}
+//	catch(Exception e)
+//	{
+//		wait.until(ExpectedConditions.visibilityOfElementLocated(noRecordsImage));
+//        Assert.assertTrue(driver.findElement(noRecordsImage).isDisplayed());
+//        System.out.println("no records present");
+//	}
+//		
+	//Instead of above code ,i am calling below method to get visitor list
+//	VisitorNameList();
+	
+	   
+	
+	 driver.findElement(counterCards).click(); 
+       } 
+   
+  
+    }
+
+    
+    
+
+	public void pagination() throws InterruptedException {
+    	
+    	
+    	int paginationSize=driver.findElements(paginationCount).size();
+		System.out.println("total pagination count is :"+paginationSize);
+		
+		List<String> names= new ArrayList<String>();
+		for (int i = 1; i <= paginationSize+1; i++) {
+			
+			String paginationSelector="#root > div.app-wrapper > div > div:nth-child(2) > div > div > div > div:nth-child(5) > div > div > div> nav > ul > li> button>span:nth-child("+i+")";
+			System.out.println(paginationSelector);
+			driver.findElement(By.cssSelector(paginationSelector)).click();
+			Thread.sleep(1000L);
+			System.out.println("Clicked on pagination button");
+			
+			
+			java.util.List<WebElement> lists = driver.findElements(nameOfVisitorList);
+			System.out.println("In current organization " + lists.size() + " visitor present");
+			for(WebElement ele : lists) {
+				System.out.println(ele.getText());
+				names.add(ele.getText());
+				ExtentCucumberAdapter.addTestStepLog(ele.getText());
+				
+			
+		}
+	
+       int totalNameSize=names.size();
+       System.out.println("Total number of Names :"+totalNameSize);
+		}
+	}
+    public void nextpageButton() {
+    	driver.findElement(nextPageButton).click();
+		
+	}
+    public void personPagination() throws InterruptedException {
+    	
+       List<WebElement>  ele2 = driver.findElements(allPageNumber);
+     int pagesize=  ele2.size();
+        System.out.println( "Page number is "+pagesize);
+        if(pagesize<2) {
+        System.out.println("There is only single page");
+        }
+        else
+        {
+        	for(int i=1;i<=pagesize;i++) {
+                WebElement ele=driver.findElement(personNextpageButton);
+            	javascriptExecutor.executeScript("arguments[0].click();", ele);
+            	Thread.sleep(2000L);
+            	personList();
+		
+	}
+    	}
+   }
+    	
+    
+    public void filter() throws InterruptedException {	
+    wait.until(ExpectedConditions.visibilityOf(driver.findElement(Dashboard_filterIcon)));
+    actions.moveToElement(driver.findElement(Dashboard_filterIcon)).click().build().perform();
+    	Thread.sleep(2000);
+//    	
+//    WebElement ele=driver.findElement(Dashboard_filterIcon); 
+//    if(ele.isDisplayed()) {
+//    System.out.println("Filter icon is displayed");
+//	} 
+//    else {
+//    	System.out.println("not displaying");
+//    }
+    }
+    public void clickOnclearFilterLink() {
+    	driver.findElement(ClearFilterLink).click();
+		
+	}
+    
+    
+    
+    
+    public void clickOnVisitorMenu()
+    {
+        driver.findElement(visitorMenu).click();
+    }
+    public void clickOnOrganizationMenu()
+    {
+        driver.findElement(organizationMenu).click();
+        driver.findElement(organizationMenu).click();
+    }
+    public void clickOnSiteMenu()
+    {
+        driver.findElement(siteMenu).click();
+    }
+    public void clickOnSettingsMenu()
+    {
+        driver.findElement(settingsMenu).click();
+    }
+    public void clickOnPersonSubMenu() throws InterruptedException
+    {
+        driver.findElement(personSubMenu).click();
+        Thread.sleep(2000L);
+    }
+    public void clickOnsiteManagementMenu()
+    {
+        driver.findElement(siteManagementMenu).click();
+    }
+    public void clickOnZoneMenu()
+    {
+        driver.findElement(zoneMenu).click();
+    }
+  
+
+    public void searchByFirstName() throws InterruptedException {
+     //   try {
+            java.util.List<WebElement> lists = driver.findElements(nameLists);
+            System.out.println("records present :- " + lists.size());
+            String str = driver.findElement(searchByfirstName).getText();
+            System.out.println("first name data is :" +str);        
+        WebElement searchField=driver.findElement(searchTextField);
+            searchField.sendKeys(str);
+            
+//       WebElement ele4=driver.findElement(searchIcon);
+//            JavascriptExecutor jse = (JavascriptExecutor)driver;
+//         	jse.executeScript("arguments[0].click;", ele4);  
+          
+//            driver.findElement(searchIcon).click();
+//            actions.moveToElement(driver.findElement(personsearchIcon)).click().build().perform();
+            
+            wait.until(ExpectedConditions.elementToBeClickable(searchIcon)).click();
+            driver.findElement(searchIcon).click();
+            System.out.println("searched data " + str + " is displaying");
+
+//        } catch (Exception e) {
+////            wait.until(ExpectedConditions.visibilityOfElementLocated(noRecordsImage));
+////            Assert.assertTrue(driver.findElement(noRecordsImage).isDisplayed());
+//            System.out.println("no records present");
+//
+//        }
+    }
+    
+   public void personSearch() {
+	 List<WebElement> stPersonRowData  =driver.findElements(stRowPersonlist);
+	int j= stPersonRowData.size();
+	 System.out.println("Size of row list are:"+ j);
+	 
+	 for(int i=2;i<j;i++) {
+	 String stRowPersonlist="#root > div.app-wrapper > div > div:nth-child(2) > div > div > div:nth-child(3) > div > div > div > div > div:nth-child(2) > div > div > div > div:nth-child(1)>div:nth-child("+i+")";
+		
+		 System.out.println(stRowPersonlist);
+		 String str= driver.findElement(By.cssSelector(stRowPersonlist)).getText();
+		 System.out.println(str);
+		 WebElement searchField=driver.findElement(searchTextField);
+		 searchField.sendKeys(str);
+		 wait.until(ExpectedConditions.elementToBeClickable(searchIcon)).click();
+         driver.findElement(searchIcon).click();
+         System.out.println("searched data " + str + " is displaying");
+         
+         ArrayList<String>singlePersonData= new ArrayList<>();
+         for(WebElement str6: stPersonRowData) {
+        	singlePersonData.add(str6.getText());
+         }
+         if(singlePersonData.contains(str)) {
+        	 System.out.println("Searched successfully");
+         }
+      
+         driver.findElement(clearIcon).click();
+	 }
+	
+}
+   public void enterWrongPersonData(String str)
+   {
+       driver.findElement(nameTextfeildInFilter).click();
+       driver.findElement(nameTextfeildInFilter).sendKeys(str);
+
+   }
+    public void enterNameforFilteration() throws InterruptedException {
+        java.util.List<WebElement> lists = driver.findElements(emailLists);
+        System.out.println("records present :- " + lists.size());
+        String str = driver.findElement(searchByFirstEmail).getText();
+        System.out.println("First site name is :" +str);
+        for (WebElement list : lists) {
+            String blocked_visitor_names = list.getText();
+            if (blocked_visitor_names.equals(str)) {
+                driver.findElement(nameTextfeildInFilter).sendKeys("site blr");
+            }
+        }
+
+    }
+    public void enterEmailforRegistrationFilteration() throws InterruptedException {
+        java.util.List<WebElement> lists = driver.findElements(emailListReg);
+        System.out.println("records present :- " + lists.size());
+        String str = driver.findElement(searchByFirstEmailInRegistration).getText();
+        for (WebElement list : lists) {
+            String blocked_visitor_names = list.getText();
+            if (blocked_visitor_names.equals(str)) {
+                driver.findElement(nameTextfeildInFilter).sendKeys(str);
+            }
+        }
+
+    }
+    
+
+    public void verifyFilterByName() {
+
+        try {
+            java.util.List<WebElement> lists = driver.findElements(emailLists);
+            System.out.println("records present :- " + lists.size());
+            String name = driver.findElement(searchByFirstEmail).getText();
+            System.out.println("First Name " + name + " is displaying");
+
+        } catch (Exception e) {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(noRecordsImage));
+            Assert.assertTrue(driver.findElement(noRecordsImage).isDisplayed());
+            System.out.println("no records present");
+        }
+    }
+    public void clickOnApplyButton()
+    {
+        driver.findElement(applyButton).click();
+    }
+    public void clickOnResetButton()
+    {
+        driver.findElement(resetButton).click();
+    }
+    public void clickOnViewIconInCloudVisitor() throws InterruptedException
+    {
+        java.util.List<WebElement> lists = driver.findElements(emailLists);
+        System.out.println("records present :- " + lists.size());
+        String str = driver.findElement(searchByFirstEmail).getText();
+        System.out.println(str);
+        for(WebElement list : lists) {
+            String blocked_visitor_names = list.getText();
+//            System.out.println(blocked_visitor_names);
+            if (blocked_visitor_names.equals(str)) {
+             WebElement ele4=driver.findElement(viewIconInCloudVisitor);         
+         javascriptExecutor.executeScript("arguments[0].click();", ele4);
+         System.out.println("clicked");
+        
+            }
+        }
+       
+        }
+        
+    
+    public void viewDetails()
+    {
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(viewDetails));
+            java.util.List<WebElement> person = driver.findElements(viewDetails);
+            System.out.println("Counter card present :- " + person.size());
+            for (WebElement cardName : person) {
+                System.out.println(cardName.getText());
+            }
+        }
+        catch(Exception e)
+        {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(noRecordsImage));
+            Assert.assertTrue(driver.findElement(noRecordsImage).isDisplayed());
+            System.out.println("no records present");
+        }
+
+    }
+    public void selectRecords5() {
+        sel = new Select(driver.findElement(selectId));
+        sel.selectByVisibleText("5");
+    }
+    public void selectRecords20() {
+        sel = new Select(driver.findElement(selectId));
+        sel.selectByVisibleText("20");
+    }
+    public void RecordsCount() {
+        WebElement option = sel.getFirstSelectedOption();
+        String SelectedText = option.getText();
+        System.out.println(" Records per page is displaying " + SelectedText);
+    }
+
+    public void enterWrongDataIntoFilter(String str)
+    {
+        driver.findElement(nameTextfeildInFilter).click();
+        driver.findElement(nameTextfeildInFilter).sendKeys(str);
+
+    }
+
+    public void noRecocrImage()
+    {
+    	wait.until(ExpectedConditions.visibilityOfElementLocated(noRecordsImage));
+        Assert.assertTrue(driver.findElement(noRecordsImage).isDisplayed());
+        System.out.println("no records present");
+    }
+
+    public void clickOnVisitingFlowchart()
+    {
+        driver.findElement(visitingFlowchart).click();
+    }
+
+    public WebElement verifyInvitationImage()
+    {
+        return driver.findElement(invitationImage);
+    }
+    public WebElement verifyRegistrationImage()
+    {
+        return driver.findElement(registrationImage);
+    }
+
+
+
+    public void clickOnInvitation()
+    {
+        driver.findElement(Invitation).click();
+    }
+    public void clickOnRegistration()
+    {
+        driver.findElement(Registration).click();
+    }
+
+    public void clickOnApproval()
+    {
+        driver.findElement(Approval).click();
+    }
+    public void clickOnBlockVisitors()
+    {
+        driver.findElement(BlockVisitors).click();
+    }
+    public void clickOnVisitorLog()
+    {
+        driver.findElement(VisitorLog).click();
+    }
+    public void clickOnPlusIcon() {
+
+        driver.findElement(plusIcon).click();
+
+
+    }
+    public void enterDetailsForVisitorRegistration(String firstName, String email_id, String company) {
+        String name = RandomStringUtils.randomAlphabetic(3);
+        String number = RandomStringUtils.randomNumeric(2);
+        driver.findElement(firstnameField).sendKeys(firstName+name);
+        driver.findElement(emailFieldInInvitation).sendKeys(number + email_id);
+        actions.moveToElement(driver.findElement(purposeType)).click().build().perform();
+        driver.findElement(purposeTypeClick).click();
+        robot.keyPress(KeyEvent.VK_DOWN);
+        robot.keyRelease(KeyEvent.VK_DOWN);
+        robot.keyPress(KeyEvent.VK_DOWN);
+        robot.keyRelease(KeyEvent.VK_DOWN);
+        robot.keyPress(KeyEvent.VK_ENTER);
+        robot.keyRelease(KeyEvent.VK_ENTER);
+        driver.findElement(compName).sendKeys(company);
+        actions.moveToElement(driver.findElement(site_Type)).click().build().perform();
+        driver.findElement(siteDropdownClick).click();
+        robot.keyPress(KeyEvent.VK_DOWN);
+        robot.keyRelease(KeyEvent.VK_DOWN);
+        robot.keyPress(KeyEvent.VK_DOWN);
+        robot.keyRelease(KeyEvent.VK_DOWN);
+        robot.keyPress(KeyEvent.VK_ENTER);
+        robot.keyRelease(KeyEvent.VK_ENTER);
+    }
+
+    public void clickOnsubmitButton() {
+        for (int i = 0; i <= 2; i++) {
+
+            try {
+                driver.findElement(submitButton).click();
+                break;
+            } catch (Exception e) {
+                wait.until(ExpectedConditions.visibilityOf(driver.findElement(submitButton)));
+            }
+        }
+
+    }
+
+    public WebElement verifySuccessfulMessageForRegisterVisitor() {
+        return driver.findElement(verifySuccessfulMessageForRegisterVisitor);
+    }
+
+
+    public void submitButtonClick()
+    {
+        driver.findElement(submitButton).click();
+    }
+	
+
+    public void selectOrganizationSearchField(String companyNameForLogin) throws InterruptedException {
+		WebElement m = driver.findElement(SelectOrganizationSearchField);
+		JavascriptExecutor jse = (JavascriptExecutor)driver;
+		jse.executeScript("arguments[0].click();", m);
+		System.out.println("elecment clicked");
+		driver.findElement(SelectOrganizationSearchField).sendKeys(companyNameForLogin);
+		
+		
+	}
+
+
+    public void viewTodaysDashboardRecordsDetails() throws InterruptedException
+    {
+    	wait.until(ExpectedConditions.visibilityOfElementLocated(counterCards));
+        driver.findElement(counterCards).click();
+        WebElement ele5= driver.findElement(todayRadioButton);
+         JavascriptExecutor jse = (JavascriptExecutor)driver;
+     	jse.executeScript("arguments[0].click();", ele5);
+    	Thread.sleep(1000L);
+    	
+    	try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(nameOfVisitorList));
+            java.util.List<WebElement> person = driver.findElements(nameOfVisitorList);
+            System.out.println("Counter card present :- " + person.size());
+            for (WebElement cardName : person) {
+                System.out.println(cardName.getText());
+            }
+        }
+        catch(Exception e)
+        {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(noRecordsImage));
+            Assert.assertTrue(driver.findElement(noRecordsImage).isDisplayed());
+            System.out.println("no records present");
+        }
+
+    }
+    public void viewLast7daysDashboardRecordsDetails() throws InterruptedException
+    {
+    	wait.until(ExpectedConditions.visibilityOfElementLocated(counterCards));
+        driver.findElement(counterCards).click();
+        WebElement ele5= driver.findElement(SevendaysRadioButton);
+         JavascriptExecutor jse = (JavascriptExecutor)driver;
+     	jse.executeScript("arguments[0].click();", ele5);
+    	Thread.sleep(1000L);
+    	
+    	try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(nameOfVisitorList));
+            java.util.List<WebElement> person = driver.findElements(nameOfVisitorList);
+            System.out.println("Counter card present :- " + person.size());
+            for (WebElement cardName : person) {
+                System.out.println(cardName.getText());
+            }
+        }
+        catch(Exception e)
+        {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(noRecordsImage));
+            Assert.assertTrue(driver.findElement(noRecordsImage).isDisplayed());
+            System.out.println("no records present");
+        }
+
+    }
+    public void viewLast30DaysDashboardRecordsDetails() throws InterruptedException
+    {
+    	wait.until(ExpectedConditions.visibilityOfElementLocated(counterCards));
+        driver.findElement(counterCards).click();
+        WebElement ele5= driver.findElement(thirtydaysRadioButton);
+         JavascriptExecutor jse = (JavascriptExecutor)driver;
+     	jse.executeScript("arguments[0].click();", ele5);
+    	Thread.sleep(1000L);
+    	
+    	try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(nameOfVisitorList));
+            java.util.List<WebElement> person = driver.findElements(nameOfVisitorList);
+            System.out.println("Counter card present :- " + person.size());
+            for (WebElement cardName : person) {
+                System.out.println(cardName.getText());
+            }
+        }
+        catch(Exception e)
+        {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(noRecordsImage));
+            Assert.assertTrue(driver.findElement(noRecordsImage).isDisplayed());
+            System.out.println("no records present");
+        }
+
+    }
+    public void viewAllDaysDashboardRecordsDetails() throws InterruptedException
+    {
+    	wait.until(ExpectedConditions.visibilityOfElementLocated(counterCards));
+        driver.findElement(counterCards).click();
+        WebElement ele5= driver.findElement(alldaysRadioButton);
+         JavascriptExecutor jse = (JavascriptExecutor)driver;
+     	jse.executeScript("arguments[0].click();", ele5);
+    	Thread.sleep(1000L);
+    	
+    	try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(nameOfVisitorList));
+            java.util.List<WebElement> person = driver.findElements(nameOfVisitorList);
+            System.out.println("Counter card present :- " + person.size());
+            for (WebElement cardName : person) {
+                System.out.println(cardName.getText());
+            }
+        }
+        catch(Exception e)
+        {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(noRecordsImage));
+            Assert.assertTrue(driver.findElement(noRecordsImage).isDisplayed());
+            System.out.println("no records present");
+        }
+
+    }
+    public void todayDayPicker() {
+    	wait.until(ExpectedConditions.visibilityOfElementLocated(counterCards));
+        driver.findElement(counterCards).click();
+        WebElement ele5= driver.findElement(todayRadioButton);
+         JavascriptExecutor jse = (JavascriptExecutor)driver;
+     	jse.executeScript("arguments[0].click();", ele5);
+     	System.out.println("I have selected the today day picker");
+		
+	}
+    public void sevenDayPicker() {
+    	wait.until(ExpectedConditions.visibilityOfElementLocated(counterCards));
+        driver.findElement(counterCards).click();
+        WebElement ele5= driver.findElement(SevendaysRadioButton);
+         JavascriptExecutor jse = (JavascriptExecutor)driver;
+     	jse.executeScript("arguments[0].click();", ele5);
+		
+	}
+    public void thirtyDayPicker() {
+    	wait.until(ExpectedConditions.visibilityOfElementLocated(counterCards));
+        driver.findElement(counterCards).click();
+        WebElement ele5= driver.findElement(thirtydaysRadioButton);
+         JavascriptExecutor jse = (JavascriptExecutor)driver;
+     	jse.executeScript("arguments[0].click();", ele5);
+		
+	}
+    public void alldayDayPicker() throws InterruptedException {
+    	wait.until(ExpectedConditions.visibilityOfElementLocated(counterCards));
+        driver.findElement(counterCards).click();
+        WebElement ele5= driver.findElement(alldaysRadioButton);
+         JavascriptExecutor jse = (JavascriptExecutor)driver;
+     	jse.executeScript("arguments[0].click();", ele5);
+     	Thread.sleep(2000L);
+     	System.out.println("Counter card selected is " +driver.findElement(counterCards).getText());
+		
+	}
+    
+    public void clickedOnCheckInTab() throws InterruptedException {
+		wait.until(ExpectedConditions.visibilityOf(driver.findElement(checkInTab)));
+    	WebElement ele5=driver.findElement(checkInTab);
+    	javascriptExecutor.executeScript("arguments[0].click();", ele5);
+    	Thread.sleep(2000L);
+    	System.out.println("I have clickedOnCheckInTab ");
+    	 VisitorNameList();
+    	 checkinStatusValidation();
+    	
+    	
+		
+	}
+    public void checkinStatusValidation() {
+    	
+    	System.out.println("I am here to validate check in status");
+    	try {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(nameOfVisitorList));
+    	List<WebElement> visitorStatus =driver.findElements(statusValue);
+    	 for(WebElement visitStatus : visitorStatus) {
+    		 visitStatus.getText();
+    		
+    		 if(visitStatus.getText().equals("Check In")) {
+    			 System.out.println(visitStatus.getText());
+    			 
+    		 }
+    		 }
+    	}
+    	
+    			 catch(Exception e) {
+			      wait.until(ExpectedConditions.visibilityOfElementLocated(noRecordsImage));
+				System.out.println("in catch block");
+			     Assert.assertTrue(driver.findElement(noRecordsImage).isDisplayed());
+			     String noRecordsFoundMessage=driver.findElement(noRecordsImage).getText();
+			     System.out.println(noRecordsFoundMessage);
+			    
+			      
+			  }
+    		 }
+    	 
+public void checkOutStatusValidation() {
+    	
+    	System.out.println("I am here to validate check in status");
+    	try {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(VisitorListOfDashboard));
+        java.util.List<WebElement> personlist = driver.findElements(VisitorListOfDashboard);
+        System.out.println("Counter card present :- " + personlist.size());
+        for (WebElement cardName : personlist) {
+            System.out.println(cardName.getText());
+        }
+        System.out.println("GOT THE NAME LIST");
+    	 for(WebElement visitStatus : personlist) {
+    		 
+    		if(visitStatus.getText().equals("Check Out")) {
+    			 System.out.println(visitStatus.getText());
+    			 
+    		 }
+    		 }
+    	}
+    	
+    			 catch(Exception e) {
+			      wait.until(ExpectedConditions.visibilityOfElementLocated(noRecordsImage));
+				System.out.println("in catch block");
+			     Assert.assertTrue(driver.findElement(noRecordsImage).isDisplayed());
+			     String noRecordsFoundMessage=driver.findElement(noRecordsImage).getText();
+			     System.out.println(noRecordsFoundMessage);
+			    
+			      
+			  }
+    		 }
+public void SelfRegistration_Registation_Invitation_StatusValidation() {
+	
+	System.out.println("I am here to validate check in status");
+	try {
+    wait.until(ExpectedConditions.visibilityOfElementLocated(VisitorListOfDashboard));
+    java.util.List<WebElement> personlist = driver.findElements(VisitorListOfDashboard);
+  
+    
+    System.out.println("Counter card present :- " + personlist.size());
+    for (WebElement cardName : personlist) {
+        System.out.println(cardName.getText());
+    }
+    System.out.println("GOT THE NAME LIST");
+	 for(WebElement visitStatus : personlist) {
+		 
+		if(visitStatus.getText().equals("Cancelled")||visitStatus.getText().equals("Rejected")||visitStatus.getText().equals("Missed")||visitStatus.getText().equals("Confirmed")||visitStatus.getText().equals("Scheduled")||visitStatus.getText().equals("Check Out")||visitStatus.getText().equals("Check In")||visitStatus.getText().equals("Blocked")){
+			 System.out.println(visitStatus.getText());
+			 
+		 }
+		 }
+	}
+	
+			 catch(Exception e) {
+		      wait.until(ExpectedConditions.visibilityOfElementLocated(noRecordsImage));
+			System.out.println("in catch block");
+		     Assert.assertTrue(driver.findElement(noRecordsImage).isDisplayed());
+		     String noRecordsFoundMessage=driver.findElement(noRecordsImage).getText();
+		     System.out.println(noRecordsFoundMessage);
+		    
+		      
+		  }
+		 }
+public void confirmedStatusValidation() {
+	
+	System.out.println("I am here to validate check in status");
+	try {
+    wait.until(ExpectedConditions.visibilityOfElementLocated(VisitorListOfDashboard));
+    java.util.List<WebElement> personlist = driver.findElements(VisitorListOfDashboard);
+    System.out.println("Counter card present :- " + personlist.size());
+    for (WebElement cardName : personlist) {
+        System.out.println(cardName.getText());
+    }
+    System.out.println("*************GOT THE NAME LIST******************");
+	 for(WebElement visitStatus : personlist) {
+		 
+		if(visitStatus.getText().equals("Confirmed")) {
+			 System.out.println(visitStatus.getText());
+			 
+		 }
+		 }
+	}
+	
+			 catch(Exception e) {
+		      wait.until(ExpectedConditions.visibilityOfElementLocated(noRecordsImage));
+			System.out.println("in catch block");
+		     Assert.assertTrue(driver.findElement(noRecordsImage).isDisplayed());
+		     String noRecordsFoundMessage=driver.findElement(noRecordsImage).getText();
+		     System.out.println(noRecordsFoundMessage);
+		    
+		      
+		  }
+		 }
+    
+    public void clickedOnCheckOutTab() throws InterruptedException {
+    	WebElement ele3=driver.findElement(checkOutTab);
+    	javascriptExecutor.executeScript("arguments[0].click();", ele3);
+    	Thread.sleep(2000L);
+    	System.out.println("I have clickedOnCheckOutTab ");
+      checkOutStatusValidation();
+    }
+    public void clickedOnSelfRegistrationTab() throws InterruptedException {
+    	WebElement ele4=driver.findElement(SelfRegistrationTab);
+    	javascriptExecutor.executeScript("arguments[0].click();", ele4);
+    	Thread.sleep(2000L);
+    	System.out.println("I have clickedOnSelfRegistrationTab ");
+    	SelfRegistration_Registation_Invitation_StatusValidation();
+    }
+    public void clickedOnRegistrationTab() throws InterruptedException {
+    	WebElement ele5=driver.findElement(RegistrationTab);
+    	javascriptExecutor.executeScript("arguments[0].click();", ele5);
+    	Thread.sleep(2000L);
+    	System.out.println("I have clickedOnRegistrationTab ");
+    	SelfRegistration_Registation_Invitation_StatusValidation();
+    }
+    public void clickedOnInvitationTab() throws InterruptedException {
+    	WebElement ele6=driver.findElement(InvitationTab);
+    	javascriptExecutor.executeScript("arguments[0].click();", ele6);
+    	Thread.sleep(2000L);
+    	System.out.println("I have clickedOnInvitationTab ");
+    	SelfRegistration_Registation_Invitation_StatusValidation();
+    }
+    public void clickedConfirmedTab() throws InterruptedException {
+    	WebElement ele7=driver.findElement(ConfirmedTab);
+    	javascriptExecutor.executeScript("arguments[0].click();", ele7);
+    	Thread.sleep(2000L);
+    	System.out.println("I have clickedConfirmedTab ");
+    	confirmedStatusValidation();
+    }
+    public void VisitorNameList() {
+    	try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(VisitorListOfDashboard));
+            java.util.List<WebElement> person = driver.findElements(VisitorListOfDashboard);
+            System.out.println("Counter card present :- " + person.size());
+            for (WebElement cardName : person) {
+                System.out.println(cardName.getText());
+            }
+        }
+        catch(Exception e)
+        {
+//            wait.until(ExpectedConditions.visibilityOfElementLocated(noRecordsImage));
+            Assert.assertTrue(driver.findElement(noRecordsImage).isDisplayed());
+       String noRecordsFoundMessage=driver.findElement(noRecordsImage).getText();
+       System.out.println(noRecordsFoundMessage);
+            
+        }
+		
+	}
+    
+		
+	
+    public void VisitorStatus() {
+    	try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(VisitorStatus));
+            java.util.List<WebElement> person = driver.findElements(VisitorStatus);
+            System.out.println("Counter card present :- " + person.size());
+            for (WebElement cardName : person) {
+                System.out.println(cardName.getText());
+            }
+        }
+        catch(Exception e)
+        {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(noRecordsImage));
+            Assert.assertTrue(driver.findElement(noRecordsImage).isDisplayed());
+       String noRecordsFoundMessage=driver.findElement(noRecordsImage).getText();
+       System.out.println(noRecordsFoundMessage);
+            
+        }
+		
+	}
+    public void iconOfEachList() {
+    int i	=driver.findElements(iconOfEachList).size();
+    	System.out.println("the iconOfEachList count is:"+i);
+//    	actions.moveToElement(driver.findElements(iconOfEachList));
+		
+	}
+    public void searchTextField() {
+    	List<WebElement> visitorNamelist = driver.findElements(dashboard1stPersonList);
+    	 for (WebElement visitorData : visitorNamelist) {
+           driver.findElement(searchTextField).sendKeys(visitorData.getText());
+           driver.findElement(clearIcon).click();
+    	 }
+	}
+    public void dashboardSearch() throws InterruptedException {
+            driver.findElement(searchTextField).sendKeys("srtyuil");
+            
+            WebElement m = driver.findElement(By.xpath("//*[local-name()='svg' and @id='Search']"));
+            m.click();
+            Actions act = new Actions(driver);
+            act.moveToElement(m).
+            click().build().perform();
+     
+         
+    }
+    
+    
+    public void personTableName() {
+    WebElement PersonHeading=driver.findElement(By.cssSelector("#root > div.app-wrapper > div > div:nth-child(2) > div > div > div> div > div > h3"));
+    String PersonHeadingText=PersonHeading.getText();
+    System.out.println("Person heading is :"+PersonHeadingText);
+    WebElement personTableColumnName=driver.findElement(personTableName);
+    	String ColumnName=personTableColumnName.getText();
+    	System.out.println("Column names are:"+ColumnName);
+    	
+	}
+    public void personList() {
+    
+        wait.until(ExpectedConditions.visibilityOfElementLocated(personList));
+        java.util.List<WebElement> person = driver.findElements(personList);
+//        System.out.println("Counter card present :- " + person.size());
+        for (WebElement cardName : person) {
+            System.out.println(cardName.getText());
+   
+        }   
+    }
+  
+		
+	
+    public void personFilter() {
+    	wait.until(ExpectedConditions.visibilityOfElementLocated(personfilterIcon));
+       WebElement filterIconPerson=	driver.findElement(personfilterIcon);
+    	Actions actions = new Actions(driver); 
+    	actions. moveToElement(filterIconPerson).click();
+		
+	}
+    public void rowSelectionAndValidateVisitorlist() throws InterruptedException {
+    
+    	try {
+    Select	sel = new Select(driver.findElement(perpageField));
+        java.util.List<WebElement> options = sel.getOptions();
+        for (WebElement ele : options) {
+            System.out.println("Its clicked on Row no :"+ele.getText());
+            ele.click();
+            VisitorNameList();
+            
+            
+        }
+    	}
+        catch(Exception e)
+        {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(noRecordsImage));
+            Assert.assertTrue(driver.findElement(noRecordsImage).isDisplayed());
+            System.out.println("no records present");
+        }
+      
+		
+	}
+    public void rowSelectionAndValidatePersonList() {
+    	Select	sel = new Select(driver.findElement(perpageField));
+        java.util.List<WebElement> options = sel.getOptions();
+        for (WebElement ele : options) {
+            System.out.println("Its clicked on Row no :"+ele.getText());
+            ele.click();
+            personList();
+	}
+    }
+    }
+
+

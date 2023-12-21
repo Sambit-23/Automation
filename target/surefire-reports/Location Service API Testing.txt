@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: Location Service API Testing
+-------------------------------------------------------------------------------
+Tests run: 26, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 23.896 s - in Location Service API Testing

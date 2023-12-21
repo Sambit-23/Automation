@@ -1,0 +1,421 @@
+[
+  {
+    "line": 2,
+    "elements": [
+      {
+        "start_timestamp": "2023-02-08T06:06:35.318Z",
+        "before": [
+          {
+            "result": {
+              "duration": 4302400,
+              "status": "passed"
+            },
+            "match": {
+              "location": "stepDefinitions.Organization.setup()"
+            }
+          }
+        ],
+        "line": 5,
+        "name": "Generate client token",
+        "description": "",
+        "id": "organization-service-v3-api-testing;generate-client-token",
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 649951400,
+              "status": "passed"
+            },
+            "line": 6,
+            "name": "payload to generate a client token",
+            "match": {
+              "location": "stepDefinitions.Organization.payload_to_generate_a_client_token()"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 1105287800,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "user calls generate client token API with POST http request",
+            "match": {
+              "location": "stepDefinitions.Organization.user_calls_generate_client_token_api_with_post_http_request()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 435192400,
+              "status": "passed"
+            },
+            "line": 8,
+            "name": "validate response code and response message for successfull generation of client token",
+            "match": {
+              "location": "stepDefinitions.Organization.validate_response_code_and_response_message_for_successfull_generation_of_client_token()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@Organization"
+          },
+          {
+            "name": "@Regression"
+          },
+          {
+            "name": "@PC"
+          },
+          {
+            "name": "@Smoke"
+          },
+          {
+            "name": "@Regression"
+          },
+          {
+            "name": "@Department"
+          },
+          {
+            "name": "@Designation"
+          },
+          {
+            "name": "@Visitor"
+          },
+          {
+            "name": "@Employee12"
+          },
+          {
+            "name": "@12"
+          },
+          {
+            "name": "@123"
+          },
+          {
+            "name": "@12345"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2023-02-08T06:06:37.683Z",
+        "before": [
+          {
+            "result": {
+              "duration": 999900,
+              "status": "passed"
+            },
+            "match": {
+              "location": "stepDefinitions.Organization.setup()"
+            }
+          }
+        ],
+        "line": 11,
+        "name": "Generate company token",
+        "description": "",
+        "id": "organization-service-v3-api-testing;generate-company-token",
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 13000800,
+              "status": "passed"
+            },
+            "line": 12,
+            "name": "payload to generate a company token",
+            "match": {
+              "location": "stepDefinitions.Organization.payload_to_generate_a_company_token()"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 775684700,
+              "status": "passed"
+            },
+            "line": 13,
+            "name": "user calls generate company token API with POST http request",
+            "match": {
+              "location": "stepDefinitions.Organization.user_calls_generate_company_token_with_post_http_request()"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 66722300,
+              "status": "passed"
+            },
+            "line": 14,
+            "name": "validate response code and response message for successfull generation of company token",
+            "match": {
+              "location": "stepDefinitions.Organization.validate_response_code_and_response_message_for_successfull_generation_of_company_token()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@Organization"
+          },
+          {
+            "name": "@Regression"
+          },
+          {
+            "name": "@SC"
+          },
+          {
+            "name": "@Smoke"
+          },
+          {
+            "name": "@Regression"
+          },
+          {
+            "name": "@Department"
+          },
+          {
+            "name": "@Designation"
+          },
+          {
+            "name": "@Visitor"
+          },
+          {
+            "name": "@Employee12"
+          },
+          {
+            "name": "@12"
+          },
+          {
+            "name": "@123"
+          },
+          {
+            "name": "@12345"
+          },
+          {
+            "name": "@s"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2023-02-08T06:06:38.557Z",
+        "before": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "stepDefinitions.Organization.setup()"
+            }
+          }
+        ],
+        "line": 4960,
+        "name": "Verify Person with person type of Employee create is successfull when all required parameter data\u0027s are provided",
+        "description": "",
+        "id": "organization-service-v3-api-testing;verify-person-with-person-type-of-employee-create-is-successfull-when-all-required-parameter-data-s-are-provided",
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 34872700,
+              "status": "passed"
+            },
+            "line": 4961,
+            "name": "payload to create a Person with person type of employee by providing all required parameter datas",
+            "match": {
+              "location": "stepDefinitions.Organization.payload_to_create_a_person_with_person_type_of_employee_by_providing_all_required_parameter_datas()"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 744118800,
+              "status": "passed"
+            },
+            "line": 4962,
+            "name": "user calls create Person API with POST http request",
+            "match": {
+              "location": "stepDefinitions.Organization.user_calls_create_person_api_with_post_http_request()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 90228400,
+              "status": "passed"
+            },
+            "line": 4963,
+            "name": "validate response code and response message for successfull Person creation with person type of employee",
+            "match": {
+              "location": "stepDefinitions.Organization.validate_response_code_and_response_message_for_successfull_person_creation_with_person_type_of_Employee()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@Organization"
+          },
+          {
+            "name": "@Regression"
+          },
+          {
+            "name": "@TC_15500"
+          },
+          {
+            "name": "@Person"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2023-02-08T06:06:39.441Z",
+        "before": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "stepDefinitions.Organization.setup()"
+            }
+          }
+        ],
+        "line": 7726,
+        "name": "verify profile photo key is refecting in the response when togglekey is passed as false",
+        "description": "",
+        "id": "organization-service-v3-api-testing;verify-profile-photo-key-is-refecting-in-the-response-when-togglekey-is-passed-as-false",
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 1997900,
+              "status": "passed"
+            },
+            "line": 7727,
+            "name": "payload to filter a Person by passing toggleKeytoURL is \"false\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"false\"",
+                  "offset": 56
+                }
+              ],
+              "location": "stepDefinitions.Organization.payloadToFilterAPersonByPassingToggleKeytoURLIs(java.lang.String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 326361300,
+              "status": "passed"
+            },
+            "line": 7728,
+            "name": "user calls filter person API with POST http request",
+            "match": {
+              "location": "stepDefinitions.Organization.user_Calls_Filter_Person_API_With_POST_Http_Request()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "error_message": "java.lang.AssertionError: 1 expectation failed.\nJSON path data.profilePhotoKey doesn\u0027t match.\nExpected: not null\n  Actual: null\n\r\n\tat java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)\r\n\tat java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)\r\n\tat java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)\r\n\tat java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)\r\n\tat org.codehaus.groovy.reflection.CachedConstructor.invoke(CachedConstructor.java:72)\r\n\tat org.codehaus.groovy.reflection.CachedConstructor.doConstructorInvoke(CachedConstructor.java:59)\r\n\tat org.codehaus.groovy.runtime.callsite.ConstructorSite$ConstructorSiteNoUnwrap.callConstructor(ConstructorSite.java:84)\r\n\tat org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallConstructor(CallSiteArray.java:59)\r\n\tat org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:263)\r\n\tat org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:277)\r\n\tat io.restassured.internal.ResponseSpecificationImpl$HamcrestAssertionClosure.validate(ResponseSpecificationImpl.groovy:493)\r\n\tat io.restassured.internal.ResponseSpecificationImpl$HamcrestAssertionClosure$validate$1.call(Unknown Source)\r\n\tat io.restassured.internal.ResponseSpecificationImpl.validateResponseIfRequired(ResponseSpecificationImpl.groovy:674)\r\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\r\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:566)\r\n\tat org.codehaus.groovy.runtime.callsite.PlainObjectMetaMethodSite.doInvoke(PlainObjectMetaMethodSite.java:43)\r\n\tat org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSiteNoUnwrapNoCoerce.invoke(PogoMetaMethodSite.java:193)\r\n\tat org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:61)\r\n\tat org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:185)\r\n\tat io.restassured.internal.ResponseSpecificationImpl.body(ResponseSpecificationImpl.groovy:261)\r\n\tat io.restassured.specification.ResponseSpecification$body$1.callCurrent(Unknown Source)\r\n\tat org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:51)\r\n\tat io.restassured.specification.ResponseSpecification$body$1.callCurrent(Unknown Source)\r\n\tat io.restassured.internal.ResponseSpecificationImpl.body(ResponseSpecificationImpl.groovy:108)\r\n\tat io.restassured.internal.ValidatableResponseOptionsImpl.body(ValidatableResponseOptionsImpl.java:244)\r\n\tat io.restassured.internal.ValidatableResponseImpl.super$2$body(ValidatableResponseImpl.groovy)\r\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\r\n\tat java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\r\n\tat java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\r\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:566)\r\n\tat org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:107)\r\n\tat groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)\r\n\tat groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1268)\r\n\tat org.codehaus.groovy.runtime.ScriptBytecodeAdapter.invokeMethodOnSuperN(ScriptBytecodeAdapter.java:144)\r\n\tat io.restassured.internal.ValidatableResponseImpl.body(ValidatableResponseImpl.groovy:298)\r\n\tat io.restassured.internal.ValidatableResponseImpl.body(ValidatableResponseImpl.groovy)\r\n\tat stepDefinitions.Organization.validateResponseCodeAndProfilePhotoKey(Organization.java:9196)\r\n\tat ✽.validate response code and profile photo key(file:///D:/Automation/Organization_v3.0/src/test/java/features/Organization.feature:7729)\r\n",
+              "duration": 38587500,
+              "status": "failed"
+            },
+            "line": 7729,
+            "name": "validate response code and profile photo key",
+            "match": {
+              "location": "stepDefinitions.Organization.validateResponseCodeAndProfilePhotoKey()"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@Organization"
+          },
+          {
+            "name": "@Regression"
+          },
+          {
+            "name": "@TC_600"
+          },
+          {
+            "name": "@personFilter"
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2023-02-08T06:06:39.836Z",
+        "before": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "match": {
+              "location": "stepDefinitions.Organization.setup()"
+            }
+          }
+        ],
+        "line": 7734,
+        "name": "Verify Employee delete is successfull based on employee code",
+        "description": "",
+        "id": "organization-service-v3-api-testing;verify-employee-delete-is-successfull-based-on-employee-code",
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 392491800,
+              "status": "passed"
+            },
+            "line": 7735,
+            "name": "payload to delete created employee based on id",
+            "match": {
+              "location": "stepDefinitions.Organization.payloadToDeleteCreatedEmployeeBasedOnId()"
+            },
+            "keyword": "Given "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@Organization"
+          },
+          {
+            "name": "@Regression"
+          },
+          {
+            "name": "@TC_0000"
+          },
+          {
+            "name": "@DeleteEmployee"
+          }
+        ]
+      }
+    ],
+    "name": "Organization Service V3 API Testing",
+    "description": "",
+    "id": "organization-service-v3-api-testing",
+    "keyword": "Feature",
+    "uri": "file:src/test/java/features/Organization.feature",
+    "tags": [
+      {
+        "name": "@Organization",
+        "type": "Tag",
+        "location": {
+          "line": 1,
+          "column": 1
+        }
+      },
+      {
+        "name": "@Regression",
+        "type": "Tag",
+        "location": {
+          "line": 1,
+          "column": 15
+        }
+      }
+    ]
+  }
+]
