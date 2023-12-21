@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;CloudAccessLocal&apos; to &apos;Demo&apos;" description="Rename resource &apos;CloudAccessLocal&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/CloudAccessLocal" name="Demo" stamp="1687341096434" updateReferences="true"/>
-</session>

@@ -1,12 +1,4 @@
-E:\Gitlab\Testing\organization-service\src\test\java\files\EmployeePayload.java
-E:\Gitlab\Testing\organization-service\src\test\java\stepDefinitions\Authorization.java
-E:\Gitlab\Testing\organization-service\src\test\java\files\CompanyPayload.java
-E:\Gitlab\Testing\organization-service\src\test\java\files\SiteTypePayload.java
-E:\Gitlab\Testing\organization-service\src\test\java\files\ZonePayload.java
-E:\Gitlab\Testing\organization-service\src\test\java\TestRunner\TestRunner.java
-E:\Gitlab\Testing\organization-service\src\test\java\files\AddressTypePayload.java
-E:\Gitlab\Testing\organization-service\src\test\java\files\UserPayload.java
-E:\Gitlab\Testing\organization-service\src\test\java\files\NotificationPayload.java
-E:\Gitlab\Testing\organization-service\src\test\java\files\Utils.java
-E:\Gitlab\Testing\organization-service\src\test\java\files\AddressPayload.java
-E:\Gitlab\Testing\organization-service\src\test\java\stepDefinitions\Organization.java
+D:\E-Drivedata\AppiumAutomation\ZKBioCloudAccessAndroid\src\test\java\utils\Base.java
+D:\E-Drivedata\AppiumAutomation\ZKBioCloudAccessAndroid\src\test\java\pageObjects\LandingPageObject.java
+D:\E-Drivedata\AppiumAutomation\ZKBioCloudAccessAndroid\src\test\java\runners\TestRunner.java
+D:\E-Drivedata\AppiumAutomation\ZKBioCloudAccessAndroid\src\test\java\steps\CloudAccessAndroid.java

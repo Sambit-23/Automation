@@ -6,8 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Organization_v3.0" />
-        <module name="Organization-V3" />
+        <module name="cloud-access-android" />
+        <module name="ZKBioCloudAccessAndroid" />
       </profile>
     </annotationProcessing>
   </component>
